@@ -26,7 +26,6 @@ class PropostaApiController extends Controller
 			$proposta = new Proposta();
 			$proposta->cliente = $data['cliente'];
 			$proposta->tema = $data['tema'];
-			dd($request->file('file'));
 			$proposta->file = base64_encode(file_get_contents($request->file('file')->path()));
 			$proposta->save();
 		} catch(Exception $ex) {
