@@ -21,14 +21,16 @@ class PropostaApiController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
-        //dd($data['cliente']);
-        $proposta = new Proposta();
-        // $proposta->fill($request->all());
-        $proposta->cliente = $data['cliente'];
-        $proposta->tema = $data['tema'];
-        $proposta->file = base64_encode(file_get_contents($request->file('file')->path()));
-        $proposta->save();
+		try {
+			$data = $request->all();
+			$proposta = new Proposta();
+			$proposta->cliente = $data['cliente'];
+			$proposta->tema = $data['tema'];
+			$proposta->file = base64_encode(file_get_contents($request->file('file')->path()));
+			$proposta->save();
+		} catch(Exception $ex) {
+			throw new Exception($ex);
+		}
         return response()->json($proposta, 201);
     }
 
